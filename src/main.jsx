@@ -10,6 +10,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <div>Hello World</div>,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/login",
@@ -19,10 +20,6 @@ const router = createBrowserRouter([
     path: "/register",
     element: <RegisterPage />,
   },
-  {
-    path: "*",
-    element: <ErrorPage />,
-  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
