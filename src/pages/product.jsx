@@ -5,7 +5,7 @@ import Button from "../components/Elements/Button";
 const products = [
   {
     id: 1,
-    name: "Jordan 1 Low",
+    name: "Jordan 1 Low Mocha",
     price: "Rp. 1.000.000",
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
@@ -15,7 +15,7 @@ const products = [
   },
   {
     id: 2,
-    name: "Jordan 1 Low",
+    name: "Jordan 1 Low Bred",
     price: "Rp. 1.000.000",
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
@@ -24,7 +24,7 @@ const products = [
   },
   {
     id: 3,
-    name: "Jordan 1 Low",
+    name: "Jordan 1 Low Panda",
     price: "Rp. 1.000.000",
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
@@ -32,7 +32,7 @@ const products = [
   },
   {
     id: 4,
-    name: "Jordan 1 Low",
+    name: "Jordan 1 Low x Dior",
     price: "Rp. 1.000.000",
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
@@ -41,7 +41,7 @@ const products = [
   },
   {
     id: 5,
-    name: "Jordan 1 Low",
+    name: "Jordan 1 Low OG Travis Scott",
     price: "Rp. 1.000.000",
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
@@ -50,7 +50,7 @@ const products = [
   },
   {
     id: 6,
-    name: "Jordan 1 Low",
+    name: "Jordan 1 Low Union",
     price: "Rp. 1.000.000",
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
