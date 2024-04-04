@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button";
 
@@ -6,7 +6,7 @@ const products = [
   {
     id: 1,
     name: "Jordan 1 Low Mocha",
-    price: "Rp. 1.000.000",
+    price: 1000000,
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
     back with an AJ1 inspired by MJ's most coveted rookie card. The GOAT's embroidered signature graces the outer heel,
@@ -16,7 +16,7 @@ const products = [
   {
     id: 2,
     name: "Jordan 1 Low Bred",
-    price: "Rp. 1.000.000",
+    price: 2000000,
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
     onal Trophy Room logo and polished Wings logo create the co-branded bliss. Premium materials and special 
@@ -25,7 +25,7 @@ const products = [
   {
     id: 3,
     name: "Jordan 1 Low Panda",
-    price: "Rp. 1.000.000",
+    price: 2500000,
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
      this pair back to the '85 season, so we can all relive the unforgettable journey together. `,
@@ -33,7 +33,7 @@ const products = [
   {
     id: 4,
     name: "Jordan 1 Low x Dior",
-    price: "Rp. 1.000.000",
+    price: 100000000,
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
     back with an AJ1 inspired by MJ's most coveted rookie card. The GOAT's embroidered signature graces the outer heel,
@@ -42,7 +42,7 @@ const products = [
   {
     id: 5,
     name: "Jordan 1 Low OG Travis Scott",
-    price: "Rp. 1.000.000",
+    price: 20000000,
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
     back with an AJ1 inspired by MJ's most coveted rookie card. The GOAT's embroidered signature graces the outer heel,
@@ -51,7 +51,7 @@ const products = [
   {
     id: 6,
     name: "Jordan 1 Low Union",
-    price: "Rp. 1.000.000",
+    price: 27000000,
     image: "/images/jordan-low.jpg",
     description: `Trade? Never. Trophy Room is 
    onal Trophy Room logo and polished Wings logo create the co-branded bliss. Premium materials and special 
@@ -61,13 +61,27 @@ const products = [
 
 const email = localStorage.getItem("email");
 
-const handleLogout = () => {
-  localStorage.removeItem("email");
-  localStorage.removeItem("password");
-  window.location.href = "/login";
-};
-
 const ProductPage = () => {
+  const [cart, setCart] = useState([]);
+
+  const handleAddToCart = (id) => {
+    if (cart.find((item) => item.id === id)) {
+      setCart(
+        cart.map((item) =>
+          item.id === id ? { ...item, qty: item.qty + 1 } : item
+        )
+      );
+    } else {
+      setCart([...cart, { id, qty: 1 }]);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+    window.location.href = "/login";
+  };
+
   return (
     <>
       <div className="flex justify-end h-20 bg-blue-700 text-white items-center px-10">
@@ -76,16 +90,60 @@ const ProductPage = () => {
           Logout
         </Button>
       </div>
-      <div className="flex flex-wrap justify-center">
-        {products.map((product) => (
-          <CardProduct key={product.id}>
-            <CardProduct.Header image={product.image} />
-            <CardProduct.Body name={product.name}>
-              {product.description}
-            </CardProduct.Body>
-            <CardProduct.Footer price={product.price} />
-          </CardProduct>
-        ))}
+      <div className="flex justify-center py-5">
+        <div className="w-3/4 flex flex-wrap">
+          {products.map((product) => (
+            <CardProduct key={product.id}>
+              <CardProduct.Header image={product.image} />
+              <CardProduct.Body name={product.name}>
+                {product.description}
+              </CardProduct.Body>
+              <CardProduct.Footer
+                price={product.price}
+                id={product.id}
+                addToCart={handleAddToCart}
+              />
+            </CardProduct>
+          ))}
+        </div>
+        <div className="w-1/4 flex flex-col">
+          <h1 className="text-2xl font-bold text-blue-700 mb-2">Cart</h1>
+          <table className="text-left table-auto border-separate border-spacing-2 border border-slate-500">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map((item) => {
+                const product = products.find((p) => p.id === item.id);
+                return (
+                  <tr key={item.id}>
+                    <td>{product.name}</td>
+                    <td>
+                      {product.price.toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                        minimumFractionDigits: 0,
+                      })}
+                    </td>
+                    <td>{item.qty}</td>
+                    <td>
+                      {(item.qty * product.price).toLocaleString("id-ID", {
+                        style: "currency",
+                        currency: "IDR",
+                        minimumFractionDigits: 0,
+                      })}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

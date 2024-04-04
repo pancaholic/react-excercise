@@ -25,11 +25,18 @@ const Body = (props) => {
 };
 
 const Footer = (props) => {
-  const { price } = props;
+  const { price, addToCart, id } = props;
+  let idr = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+  });
   return (
-    <div className="flex justify-between items-center px-8 pb-8">
-      <span className="text-white text-xl font-bold">{price}</span>
-      <Button variant="bg-yellow-500">Add to Cart</Button>
+    <div className="flex justify-between items-center px-8 pb-8 md:px-3">
+      <span className="text-white text-xl font-bold">{idr.format(price)}</span>
+      <Button variant="bg-yellow-500" onClick={() => addToCart(id)}>
+        Add to Cart
+      </Button>
     </div>
   );
 };
@@ -38,7 +45,7 @@ const CardProduct = (props) => {
   const { children } = props;
 
   return (
-    <div className="mx-2 mt-5 mb-5 w-full max-w-sm bg-slate-700 border rounded-lg shadow flex flex-col justify-between">
+    <div className="mx-2 mt-2 mb-5 w-full max-w-xs bg-slate-700 border rounded-lg shadow flex flex-col justify-between">
       {children}
     </div>
   );
