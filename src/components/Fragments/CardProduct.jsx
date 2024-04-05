@@ -5,7 +5,7 @@ const Header = (props) => {
   const { image } = props;
   return (
     <a href="#" alt="product">
-      <img src={image} alt="" className="p-8 rounded-t-lg" />
+      <img src={image} alt="" className="p-3 rounded-t-2xl" />
     </a>
   );
 };
