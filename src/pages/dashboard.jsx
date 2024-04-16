@@ -10,7 +10,7 @@ const DashboardPage = () => {
           Welcome to Dashboard
         </h1>
         <Button
-          variant="bg-blue-700"
+          variant="bg-blue-700 hover:bg-blue-500"
           onClick={() => (window.location.href = "/login")}
         >
           Login

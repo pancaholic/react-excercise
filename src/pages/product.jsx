@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button";
 
@@ -80,6 +80,8 @@ const ProductPage = () => {
     }
   }, [cart]);
 
+
+
   const handleAddToCart = (id) => {
     if (cart.find((item) => item.id === id)) {
       setCart(
@@ -98,10 +100,30 @@ const ProductPage = () => {
     window.location.href = "/login";
   };
 
+  // Checkout -> menghilangkan data di cart
   const handleCheckout = () => {
     localStorage.removeItem("cart");
     window.location.href = "/product";
   };
+
+  // useRef
+  const cartRef = useRef(JSON.parse(localStorage.getItem("cart")) || []);
+
+  const handleAddToCartRef = (id) => {
+    cartRef.current = [...cartRef.current, { id, qty: 1 }];
+    localStorage.setItem("cart", JSON.stringify(cartRef.current));
+  };
+
+  // Menampilkan total price jika sudah add to cart
+  const totalPriceRef = useRef(null);
+
+  useEffect(() => {
+    if(cart.length > 0) {
+      totalPriceRef.current.style.display = "table-row";
+    }else{
+      totalPriceRef.current.style.display = "none";
+    }
+  }, [cart])
 
   return (
     <>
@@ -162,7 +184,7 @@ const ProductPage = () => {
                   </tr>
                 );
               })}
-              <tr>
+              <tr ref={totalPriceRef}>
                 <td colSpan={3} className="font-bold">
                   Total Price
                 </td>
